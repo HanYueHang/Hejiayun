@@ -89,7 +89,6 @@ public class EstateService {
                 fcUnit.setUnitName("第" + (i+1) + "单元");
                 fcUnitMapper.insert(fcUnit);
                 redisTemplate.opsForValue().set(buildingCode + "_U" + (i+1),fcUnit);
-                System.out.println("New FcUnit:"+fcUnit);
             }
             fcUnits.add(fcUnit);
         }
