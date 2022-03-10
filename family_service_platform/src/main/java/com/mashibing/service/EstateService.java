@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class EstateService {
     判断住宅编码是否已经存在，
     如果已经存在 则不能插入
      */
+    @Transactional
     public Integer insertEstate(FcEstate fcEstate){
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("estate_code",fcEstate.getEstateCode());
@@ -57,6 +59,7 @@ public class EstateService {
      * 先插入数据再查询数据
      * @return
      */
+    @Transactional
     public List<FcBuilding> selectBuilding(Integer buildNumber,String estateCode){
         List<FcBuilding> fcBuildings = new ArrayList<>();
         for (int i=0;i<buildNumber;i++){
@@ -73,6 +76,7 @@ public class EstateService {
         int i = fcBuildingMapper.updateById(fcBuilding);
         return i;
     }
+    @Transactional
     public List<FcUnit> selectUnit(UnitMessage unitMessage){
         List<FcUnit> fcUnits = new ArrayList<>();
         for (int i = 0;i< unitMessage.getUnitCount();i++){
